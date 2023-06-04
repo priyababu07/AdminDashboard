@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-// Include the database configuration
+// Include the database configuration and establish a connection
 include("php/config.php");
 
 // Define variables and set to empty values
@@ -17,7 +17,7 @@ $currentPasswordErr = $newPasswordErr = $confirmPasswordErr = "";
 $successMessage = $errorMessage = "";
 
 // Form submission handling
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Validate current password
     if (empty($_POST["current_password"])) {
         $currentPasswordErr = "Current password is required";
@@ -49,23 +49,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Retrieve the current password from the database
         $sql = "SELECT password FROM users WHERE username = '$username'";
-        $result = $conn->query($sql);
+        $result = mysqli_query($con, $sql);
 
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
+        if (mysqli_num_rows($result) == 1) {
+            $row = mysqli_fetch_assoc($result);
             $storedPassword = $row['password'];
 
             // Verify the current password
-            if (password_verify($currentPassword, $storedPassword)) {
-                // Hash the new password
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
+            if ($currentPassword === $storedPassword) {
                 // Update the password in the database
-                $updateSql = "UPDATE users SET password = '$hashedPassword' WHERE username = '$username'";
-                if ($conn->query($updateSql) === TRUE) {
+                $updateSql = "UPDATE users SET password = '$newPassword' WHERE username = '$username'";
+                if (mysqli_query($con, $updateSql)) {
                     $successMessage = "Password updated successfully";
                 } else {
-                    $errorMessage = "Error updating password: " . $conn->error;
+                    $errorMessage = "Error updating password: " . mysqli_error($con);
                 }
             } else {
                 $currentPasswordErr = "Incorrect current password";
@@ -77,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Close the database connection
-$conn->close();
+mysqli_close($con);
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +106,7 @@ $conn->close();
                 <span class="error"><?php echo $confirmPasswordErr; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Change Password">
+                <input type="submit" name="submit" value="Change Password">
             </div>
         </form>
         <span class="success"><?php echo $successMessage; ?></span>
@@ -117,4 +114,5 @@ $conn->close();
     </div>
 </body>
 </html>
+
 
