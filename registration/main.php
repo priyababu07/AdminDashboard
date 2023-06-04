@@ -35,7 +35,7 @@ session_start();
                     <div class="dropdown">
                         <span class="material-icons-outlined account-icon">account_circle</span>
                         <div class="dropdown-content">
-                            <a href="#">Log out</a>
+                            <a href="logout.php">Log out</a>
                             <a href="changepassword.php">Change Password</a>
                         </div>
                     </div>
