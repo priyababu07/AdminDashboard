@@ -11,6 +11,7 @@ session_start();
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -52,26 +53,57 @@ session_start();
        
         <div class="col-div-3">
             <div class="box">
-            <p>45<br/><span>Customers</span></p>
+            <?php
+        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+
+        // Execute the query
+        $sql = "SELECT COUNT(*) AS total_count FROM AganwadiWorker";
+        $result = $con->query($sql);
+
+        if ($result === false) {
+            echo "Error: " . $con->error;
+            // Handle the error appropriately
+        } else {
+            $row = $result->fetch_assoc();
+            $totalCount = $row["total_count"];
+        }
+        ?>
+            <p><?php echo $totalCount; ?><br/><span>Workers</span></p>
                 <i class="fa fa-users box-icon"></i>
             </div>
         </div>
         <div class="col-div-3">
+    <div class="box">
+        <?php
+        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+
+        // Execute the query
+        $sql = "SELECT COUNT(*) AS total_count FROM pregnant_women";
+        $result = $con->query($sql);
+
+        if ($result === false) {
+            echo "Error: " . $con->error;
+            // Handle the error appropriately
+        } else {
+            $row = $result->fetch_assoc();
+            $totalCount = $row["total_count"];
+        }
+        ?>
+        <p><?php echo $totalCount; ?><br/><span>Pregnant women</span></p>
+        <i class="fas fa-plus box-icon box-icon"></i>
+    </div>
+</div>
+
+        <div class="col-div-3">
             <div class="box">
-                <p>88<br/><span>Projects</span></p>
-                <i class="fa fa-list box-icon"></i>
+                <p>99<br/><span>LactatingWomen</span></p>
+                <i class="fas fa-female box-icon"></i>
             </div>
         </div>
         <div class="col-div-3">
             <div class="box">
-                <p>99<br/><span>Orders</span></p>
-                <i class="fa fa-shopping-bag box-icon"></i>
-            </div>
-        </div>
-        <div class="col-div-3">
-            <div class="box">
-                <p>78<br/><span>Tasks</span></p>
-                <i class="fa fa-tasks box-icon"></i>
+                <p>78<br/><span>Childrens</span></p>
+                <i class="fas fa-child box-icon"></i>
             </div>
         </div>
         <div class="clearfix"></div>
