@@ -20,10 +20,10 @@ session_start();
         <a href="#" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
         <a href="agw.php"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Aganwadi Worker Details</a>
         <a href="pgw.php"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Preganant Women Details</a>
-        <a href="#"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Orders</a>
-        <a href="#"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Inventory</a>
+        <a href="child.php"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Child Detail</a>
+        <a href="#"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Messages</a>
         <a href="#"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
-        <a href="#"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Tasks</a>
+        
     </div>
     <div id="main">
         <div class="head">
@@ -32,18 +32,21 @@ session_start();
                 <span style="font-size:30px;cursor:pointer; color: white;" class="nav2"  >&#9776; Dashboard</span>
             </div>
             <div class="col-div-6">
-                <div class="profile">
-                    <div class="dropdown">
-                        <span class="material-icons-outlined account-icon">account_circle</span>
-                        <div class="dropdown-content">
-                            <a href="logout.php">Log out</a>
-                            <a href="changepassword.php">Change Password</a>
-                        </div>
-                    </div>
-                    <span class="username">
+            <div class="dropdown">
+            <div class="profile"><span id="account-icon" class="material-icons-outlined account-icon" style="margin-left: 450px; font-size: 45px;">account_circle</span>
+        
+            
+            <div class="dropdown-content" for="account-icon">
+                <a href="logout.php">Log out</a>
+                <a href="changepassword.php">Change Password</a>
+            </div>
+        </div>
+                    <span class="username" style="margin-right:1000px;" >
+                        
                         <?php 
                         echo $_SESSION['username']; 
                         ?>
+                        
                     </span>
                 </div>
             </div>
@@ -57,7 +60,7 @@ session_start();
         $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
 
         // Execute the query
-        $sql = "SELECT COUNT(*) AS total_count FROM AganwadiWorker";
+        $sql = "SELECT COUNT(*) AS total_count FROM AGW";
         $result = $con->query($sql);
 
         if ($result === false) {
@@ -125,12 +128,13 @@ session_start();
 
                     if ($result->num_rows > 0) {
                         echo "<table>";
-                        echo "<tr><th>Name</th><th>Email</th><th>Message</th><th>Action</th></tr>";
+                        echo "<tr><th>id</th><th>username</th><th>email</th><th>age</th><th>Action</th></tr>";
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>" . $row['id'] . "</td>";
+                            echo "<td>" . $row['username'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . $row['message'] . "</td>";
+                            echo "<td>" . $row['age'] . "</td>";
                             echo '<td>';
                             echo '<button class="status-button" data-submission-id="' . $row['id'] . '" data-status="approved">Approve</button>';
                             echo '<button class="status-button" data-submission-id="' . $row['id'] . '" data-status="rejected">Reject</button>';

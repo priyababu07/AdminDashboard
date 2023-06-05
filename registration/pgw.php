@@ -87,8 +87,8 @@ $result = display_data($search);
                                 <th>Blood Type</th>
                                 <th>Allergies</th>
                                 <th>Doctor Information</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <!-- <th>Edit</th>
+                                <th>Delete</th> -->
                             </tr>
                             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr>
@@ -102,8 +102,8 @@ $result = display_data($search);
                                     <td><?php echo $row['blood_type']; ?></td>
                                     <td><?php echo $row['allergies']; ?></td>
                                     <td><?php echo $row['doctor_info']; ?></td>
-                                    <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                    <td><a href="#" class="btn btn-danger">Delete</a></td>
+                                    <!-- <td><a href="#" class="btn btn-primary">Edit</a></td>
+                                    <td><a href="#" class="btn btn-danger">Delete</a></td> -->
                                 </tr>
                             <?php } ?>
                         </table>

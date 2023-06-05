@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Validate and sanitize the data if needed
 
     // Create a database connection
-    $conn = new mysqli("localhost", "root", "", "AganwadiWorker");
+    $conn = new mysqli("localhost", "root", "", "Requestes");
 
     // Check connection
     if ($conn->connect_error) {
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Prepare and execute the SQL query
-    $sql = "INSERT INTO AganwadiWorker (id, username, email, age) VALUES ('$id', '$username', '$email', '$age')";
+    $sql = "INSERT INTO submissions  (id, username, email, age) VALUES ('$id', '$username', '$email', '$age')";
     if ($conn->query($sql) === TRUE) {
         echo "Aganwadi Worker details inserted successfully!";
     } else {
